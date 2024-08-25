@@ -72,6 +72,7 @@ semihosting = ["dep:semihosting"]
 shell = ["simple-shell"]
 idle-poll = []
 mmap = []
+wasm = ["wasmtime"]
 
 [dependencies]
 hermit-macro = { path = "hermit-macro" }
@@ -110,6 +111,7 @@ talc = { version = "4" }
 time = { version = "0.3", default-features = false }
 volatile = "0.6"
 zerocopy = { version = "0.7", default-features = false }
+wasmtime = { version = "24.0", default-features = false, features = ["runtime", "gc", "component-model"], optional = true }
 
 [dependencies.smoltcp]
 version = "0.11"
