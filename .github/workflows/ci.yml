@@ -144,6 +144,7 @@ jobs:
         with:
           repository: hermit-os/hermit-rs
           submodules: true
+          ref: sleep-udp
       - name: Remove hermit-kernel submodule
         run: git rm -r kernel
         working-directory: .
