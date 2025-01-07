@@ -400,10 +400,13 @@ pub const EHWPOISON: i32 = 133;
 	not(any(feature = "common-os", feature = "nostd")),
 	not(target_arch = "riscv64")
 ))]
+#[unsafe(no_mangle)]
 #[thread_local]
-pub(crate) static SYS_ERRNO: core::cell::UnsafeCell<i32> = core::cell::UnsafeCell::new(0);
+pub static SYS_ERRNO: core::cell::UnsafeCell<i32> = core::cell::UnsafeCell::new(0);
 
 /// Get the error number from the thread local storage
+///
+/// Soft-deprecated in favor of accessing [`SYS_ERRNO`] directly.
 #[cfg(not(feature = "nostd"))]
 #[unsafe(no_mangle)]
 pub extern "C" fn sys_get_errno() -> i32 {
@@ -411,6 +414,8 @@ pub extern "C" fn sys_get_errno() -> i32 {
 }
 
 /// Get the error number from the thread local storage
+///
+/// Soft-deprecated in favor of accessing [`SYS_ERRNO`] directly.
 #[cfg(not(feature = "nostd"))]
 #[unsafe(no_mangle)]
 pub extern "C" fn sys_errno() -> i32 {
