@@ -401,7 +401,7 @@ pub const EHWPOISON: i32 = 133;
 	not(target_arch = "riscv64")
 ))]
 #[thread_local]
-pub(crate) static ERRNO: core::cell::UnsafeCell<i32> = core::cell::UnsafeCell::new(0);
+pub(crate) static SYS_ERRNO: core::cell::UnsafeCell<i32> = core::cell::UnsafeCell::new(0);
 
 /// Get the error number from the thread local storage
 #[cfg(not(feature = "nostd"))]
@@ -418,7 +418,7 @@ pub extern "C" fn sys_errno() -> i32 {
 		if #[cfg(any(feature = "common-os", target_arch = "riscv64"))] {
 			0
 		} else {
-			unsafe { ERRNO.get().read() }
+			unsafe { SYS_ERRNO.get().read() }
 		}
 	}
 }
@@ -438,7 +438,7 @@ pub(crate) trait ToErrno {
 					let _ = errno;
 				} else {
 					unsafe {
-						ERRNO.get().write(errno);
+						SYS_ERRNO.get().write(errno);
 					}
 				}
 			}
