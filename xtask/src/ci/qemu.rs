@@ -193,16 +193,26 @@ impl Qemu {
 				format!("-freq {frequency}"),
 			]
 		} else if arch == Arch::Aarch64 {
-			vec!["-machine".to_string(), "virt,gic-version=3".to_string()]
+			vec![
+				"-machine".to_string(),
+				"virt,gic-version=3".to_string(),
+				"-global".to_string(),
+				"virtio-mmio.force-legacy=off".to_string(),
+			]
 		} else if arch == Arch::Riscv64 {
 			vec![
 				"-machine".to_string(),
 				"virt".to_string(),
 				"-bios".to_string(),
 				"opensbi-1.4-rv-bin/share/opensbi/lp64/generic/firmware/fw_jump.bin".to_string(),
+				"-global".to_string(),
+				"virtio-mmio.force-legacy=off".to_string(),
 			]
 		} else {
-			vec![]
+			vec![
+				"-global".to_string(),
+				"virtio-mmio.force-legacy=off".to_string(),
+			]
 		}
 	}
 
