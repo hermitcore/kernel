@@ -429,7 +429,7 @@ unsafe fn disect<PT: Translate>(pt: PT, virt_addr: x86_64::VirtAddr) {
 				print_page_table_entries(valid_indices);
 			}
 		}
-		TranslateResult::NotMapped => todo!(),
+		TranslateResult::NotMapped => println!("virt_addr: {virt_addr:p} not mapped"),
 		TranslateResult::InvalidFrameAddress(_) => todo!(),
 	}
 }
