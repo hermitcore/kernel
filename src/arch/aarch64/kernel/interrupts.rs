@@ -278,14 +278,7 @@ pub(crate) fn init() {
 	);
 
 	GicV3::set_priority_mask(0xff);
-	let mut gic = unsafe {
-		GicV3::new(
-			gicd_address.as_mut_ptr(),
-			gicc_address.as_mut_ptr(),
-			1,
-			0x20000,
-		)
-	};
+	let mut gic = unsafe { GicV3::new(gicd_address.as_mut_ptr(), gicc_address.as_mut_ptr(), 1, 0) };
 	gic.setup(0);
 
 	for node in dtb.enum_subnodes("/") {
